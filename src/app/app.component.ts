@@ -13,7 +13,6 @@ import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle } from '@n
 })
 export class AppComponent {
   title = 'sentiment_assessment_web';
-  @ViewChild('enterBtn') btn!: ElementRef<HTMLButtonElement>;
 
   public isCollapsed : boolean = true;
 
