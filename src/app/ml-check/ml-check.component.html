@@ -5,7 +5,7 @@
     <p class="text-center fs-1">Проверка тональности</p>
     <p class="fs-3">Текст для проверки</p>
     <div class="input-group mb-2">
-      <textarea class="form-control" rows="6" id="text"></textarea>
+      <textarea class="form-control" rows="6" #text></textarea>
     </div>
   
     <button  #checkButton (click)="checkText()" class="btn btn-primary btn-block" type="submit">Проверить тональность</button>
@@ -22,8 +22,7 @@
   <div class="hide" #result>
     <p class="fs-3 align-baseline m-2">Результат</p>
     <p class="fs-5 align-baseline m-2 ">Тональность текста: 
-      <span class="text-success hide" id="success">Положительная</span>
-      <span class="text-danger hide" id="danger">Отрицательная</span>
+      <span #sentiment></span>
     </p>
    
   </div>
