@@ -1,0 +1,25 @@
+<div class="container">
+    <p class="text-center fs-1">Настройки</p>
+
+    <div class="box">
+        <div class='part1 d-inline-block'>
+            <div *ngFor="let i of pages" class="radio-btn mb-2">
+                <input id='{{i.route}}' (change)="checkValue()" [(ngModel)]="model" type="radio" name="pages"  value='{{i.route}}'>
+                <label for='{{i.route}}' class="btn btn-outline-primary">{{i.name}}</label>
+            </div>
+        </div>
+        <div class='part2 d-inline-block ms-3'>
+            <div  #first>
+            <app-info></app-info>
+            </div>
+            <div #second class='hide'>
+            <app-change-login-info ></app-change-login-info>
+            </div>
+            <!-- <app-change-login-info [ngModel]='visible' style='display: {{visible[1]}}'></app-change-login-info>
+            <app-delete-account [ngModel]='visible' style='display: {{visible[2]}}'></app-delete-account>
+        --> </div>
+    </div>
+
+
+
+</div>

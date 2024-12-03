@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,5 +9,13 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.component.sass'
 })
 export class LoginComponent {
+
+  constructor(private router: Router) {
+
+  }
+
+  login() {
+    this.router.navigate(['/account']);
+  }
 
 }
