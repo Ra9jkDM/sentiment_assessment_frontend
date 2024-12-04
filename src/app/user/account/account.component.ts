@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,9 +8,8 @@ import { ChangeLoginInfoComponent } from '../change-login-info/change-login-info
 import { DeleteAccountComponent } from '../delete-account/delete-account.component';
 
 export interface SettingPage{
+  id: string,
   name: string,
-  route: string, //Del
-  page: any
 }
 
 @Component({
@@ -21,31 +20,23 @@ export interface SettingPage{
   styleUrl: './account.component.sass'
 })
 export class AccountComponent {
-  @ViewChild('main') page!: ElementRef<HTMLDivElement>;
-  @ViewChild('first') f!: ElementRef;
-  @ViewChild('second') s!: ElementRef;
+  @ViewChildren('menu') menu!: QueryList<ElementRef<HTMLDivElement>>;
 
   pages: Array<SettingPage> = Array(
-    { name: "Общие", route: "/account", page: InfoComponent},
-    {name: "Изменение учетных данных", route: '/account/access', page: ChangeLoginInfoComponent},
-    {name: "Удаление аккауна", route: '/account/delete', page: DeleteAccountComponent}
+    {id: "info", name: "Общие"},
+    {id: 'login', name: "Изменение учетных данных"},
+    {id: 'delete', name: "Удаление аккауна"}
   )
 
-  model: string = this.pages[0].route;
-  visible: string = 'none';
-
-  constructor() {
-    // this.page.nativeElement.innerHTML = this.pages[0].page();
-  }
+  radio: string = this.pages[0].id;
 
   checkValue() {
-    console.info(typeof(this.s.nativeElement));
-    if (this.model == '/account') {
-      this.hide(this.s);
-      this.unhide(this.f)
-    } else {
-      this.unhide(this.s);
-      this.hide(this.f)
+    for (let i of this.menu) {
+      if (i.nativeElement.id == this.radio) {
+        this.unhide(i);
+      } else {
+        this.hide(i);
+      }
     }
   }
   

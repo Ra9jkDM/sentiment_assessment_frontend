@@ -6,20 +6,21 @@
       <div class="row">
         <div class='col-3'>
             <div *ngFor="let i of pages" class="radio-btn mb-2">
-                <input id='{{i.route}}' (change)="checkValue()" [(ngModel)]="model" type="radio" name="pages"  value='{{i.route}}'>
-                <label for='{{i.route}}' class="btn btn-outline-primary d-block">{{i.name}}</label>
+                <input id='{{i.id}}' (change)="checkValue()" [(ngModel)]="radio" type="radio" name="pages"  value='{{i.id}}'>
+                <label for='{{i.id}}' class="btn btn-outline-primary d-block">{{i.name}}</label>
             </div>
         </div>
         <div class='col'>
-            <div  #first>
+            <div  #menu id='info'>
                 <app-info></app-info>
-                </div>
-                <div #second class='hide'>
-                <app-change-login-info ></app-change-login-info>
-                </div>
-            <!-- <app-change-login-info [ngModel]='visible' style='display: {{visible[1]}}'></app-change-login-info>
-            <app-delete-account [ngModel]='visible' style='display: {{visible[2]}}'></app-delete-account>
-    --> </div>
+            </div>
+            <div #menu class='hide' id='login'>
+                <app-change-login-info></app-change-login-info>
+            </div>
+            <div #menu class='hide' id='delete'>
+                <app-delete-account></app-delete-account>
+            </div>
+        </div>
     </div>
 
 </div>
