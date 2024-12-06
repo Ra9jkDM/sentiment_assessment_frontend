@@ -7,12 +7,14 @@ import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle,
   NgbRatingModule,
   NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import {  HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, NgbCollapse, NgbDropdown, NgbDropdownMenu, 
-    NgbDropdownToggle, NgbAccordionModule, NgbDatepickerModule, NgbRatingModule, NgbModule, FormsModule],
+    NgbDropdownToggle, NgbAccordionModule, NgbDatepickerModule, NgbRatingModule, NgbModule, FormsModule,
+  HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
 })
