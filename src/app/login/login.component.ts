@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -11,42 +11,39 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './login.component.sass'
 })
 export class LoginComponent {
+  @ViewChild('username') username!: ElementRef<HTMLInputElement>;
+  @ViewChild('password') password!: ElementRef<HTMLInputElement>;
+  @ViewChild('info') info!: ElementRef<HTMLParagraphElement>;
 
   constructor(private router: Router, private http: HttpClient,
-    private cookie: CookieService
-  ) {
-
+    private cookie: CookieService) {
+      if (this.cookie.get('auth')) {
+        this.router.navigate(['/account']);
+      }
   }
 
   async login() {
-    let res = await fetch('http://localhost:8000/login', {
+
+    let req = await fetch('http://localhost:8000/login', {
       headers: {
         'Content-Type': 'application/json'
       },
       method: "POST",
       body: JSON.stringify({
-        "username": "tom@mail.ts",
-        "password": "secret001"
+        "username": this.username.nativeElement.value,
+        "password": this.password.nativeElement.value
       }),
       credentials: 'include'
     })
 
-    let js_obj = await res.json();
-    // res.json().then(x=> {console.log(x);});
-    console.log(res, js_obj, js_obj.cookie)
+    let response = await req.json();
+    if (req.status==200 && response.status=='success') {
+      this.cookie.set('auth', response.cookie);
+      this.router.navigate(['/account']);
+    } else {
+      this.info.nativeElement.textContent='Неправильный логин или пароль.';
+    }
 
-    this.cookie.set('auth', js_obj.cookie)
-    
-
-    res = await fetch('http://localhost:8000/user', {
-      // headers: {
-      //   Cookie: this.cookie.get('auth')
-      // },
-      credentials: 'include'
-    })
-    console.log(res, await res.json())
-
-    // this.router.navigate(['/account']);
   }
 
 }

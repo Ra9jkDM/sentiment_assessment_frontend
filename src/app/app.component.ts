@@ -8,6 +8,7 @@ import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle,
   NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',

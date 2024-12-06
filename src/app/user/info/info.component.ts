@@ -10,6 +10,28 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class InfoComponent {
   @ViewChild('img') img!:  ElementRef<HTMLImageElement>;
   @ViewChild('file') file!:  ElementRef<HTMLInputElement>;
+  @ViewChild('name') name!: ElementRef<HTMLInputElement>;
+  @ViewChild('lastname') lastname!: ElementRef<HTMLInputElement>;
+
+  constructor() {
+    
+  }
+
+  async ngOnInit() {
+    await this.loadData()
+  }
+
+  async loadData() {
+    let req = await fetch('http://localhost:8000/user', {
+      credentials: 'include'
+    });
+
+    let jsonObj = await req.json();
+
+    this.name.nativeElement.value = jsonObj.firstname;
+    this.lastname.nativeElement.value = jsonObj.lastname;
+
+  }
 
   changeImage() {
     // console.info('Image:', this.file.nativeElement.files);
@@ -26,5 +48,10 @@ export class InfoComponent {
 
     }
 
+  }
+
+  async saveChanges() {
+    // ToDo
+    
   }
 }
