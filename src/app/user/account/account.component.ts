@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { InfoComponent } from '../info/info.component';
 import { ChangeLoginInfoComponent } from '../change-login-info/change-login-info.component';
 import { DeleteAccountComponent } from '../delete-account/delete-account.component';
+import { AccountService } from '../../server_interaction/account.service';
 
 export interface SettingPage{
   id: string,
@@ -29,6 +30,10 @@ export class AccountComponent {
   )
 
   radio: string = this.pages[0].id;
+
+  constructor(private account: AccountService) {
+    account.isLogin();
+  }
 
   checkValue() {
     for (let i of this.menu) {

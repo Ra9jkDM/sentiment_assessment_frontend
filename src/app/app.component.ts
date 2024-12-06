@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, inject} from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, HostListener, viewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -9,6 +9,7 @@ import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle,
 import { FormsModule } from '@angular/forms';
 import {  HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { AccountService } from './server_interaction/account.service';
 
 @Component({
   selector: 'app-root',
@@ -23,5 +24,16 @@ export class AppComponent {
   title = 'sentiment_assessment_web';
 
   public isCollapsed : boolean = true;
+
+  constructor(public account: AccountService) {
+    
+  }
+
+  closeNav() {
+    if (window.innerWidth < 992) {
+      this.isCollapsed = true;
+    }
+  }
+
 
 }

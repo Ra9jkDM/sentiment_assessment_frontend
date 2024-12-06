@@ -3,7 +3,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { NgbAccordionModule, NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+import { AccountService } from '../server_interaction/account.service';
 
 export interface History {
   id: number;
@@ -41,7 +41,9 @@ export class InspectionResultsComponent {
 	fromDate: NgbDate | null = this.calendar.getToday();
 	toDate: NgbDate | null = this.calendar.getNext(this.calendar.getToday(), 'd', 10);
 
-  constructor() {
+  constructor(private account: AccountService) {
+	account.isLogin();
+
     for(let i=0; i<22; i++) {
       this.results.push({id: 100+i, title: "Проверка xlsx "+i, text: "Some text", 
         result:'Отрицательный', date:"10.04.2022"})

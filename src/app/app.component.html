@@ -8,41 +8,40 @@
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-      <div class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isCollapsed">
+      <div #navbarNav class="collapse navbar-collapse" id="navbarNav" [ngbCollapse]="isCollapsed">
         <ul class="ps-2 navbar-nav w-100">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/ml_check" (click)="isCollapsed = !isCollapsed">Проверка тональности</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/inspection_results" (click)="isCollapsed = !isCollapsed">Результаты проверок</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
-          </li>
-          <li class="nav-item">
-            <div ngbDropdown class="d-inline-block">
-                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
-                    Toggle dropdown
+
+          <li *ngIf='!account.checkIsLogin()' class="nav-item">
+            <div #myDrop="ngbDropdown" ngbDropdown class="d-inline-block">
+                <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle autoClose='true'>
+                    Меню
                 </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <ul>
-                    <li><a ngbDropdownItem class="dropdown-item" href="#">Action</a></li>
-                    <li><a ngbDropdownItem class="dropdown-item" href="#">Another action</a></li>
-                    <li><a ngbDropdownItem class="dropdown-item" href="#">Something else here</a></li>
+                <ul class='ps-3 pe-3'>
+                    <li><a class="nav-link" routerLink="/ml_check" (click)="myDrop.close(); closeNav()">Проверка тональности</a></li>
+                    <li><a class="nav-link" routerLink="/inspection_results" (click)="myDrop.close(); closeNav()">Результаты проверок</a></li>
+                    <li><a class="nav-link" routerLink="/account" (click)="myDrop.close(); closeNav()">Аккаунт</a></li>
                 </ul>
             </div>
             </div>
           </li>
-          <li class="nav-item row">
-            <a class="mr btn btn-outline-success me-2" routerLink="/login" (click)="isCollapsed = !isCollapsed">Войти</a>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about" (click)="closeNav()">О проекте</a>
           </li>
+
           
+          
+        </ul>
+        <ul class='navbar-nav'>
+          <li *ngIf='!account.checkIsLogin()'>
+            <img #img src="/assets/user-logo.png" class="me-3 rounded-circle"  alt="img placeholder" />
+          </li>
+          <li *ngIf='account.checkIsLogin()' class="nav-item row">
+            <a class="btn btn-outline-success me-2" routerLink="/login" (click)="closeNav()">Войти</a>
+          </li>
+          <li *ngIf='!account.checkIsLogin()' class="nav-item row">
+            <a class="btn btn-outline-success me-2" routerLink="/logout" (click)="closeNav()">Выйти</a>
+          </li>
         </ul>
     </div>
 </div>

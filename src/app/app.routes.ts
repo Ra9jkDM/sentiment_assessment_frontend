@@ -9,10 +9,12 @@ import { AccountComponent } from './user/account/account.component';
 import { InfoComponent } from './user/info/info.component';
 import { ChangeLoginInfoComponent } from './user/change-login-info/change-login-info.component';
 import { DeleteAccountComponent } from './user/delete-account/delete-account.component';
+import { LogoutComponent } from './logout/logout.component';
 
 export const routes: Routes = [
     {path: '', component: MainComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'logout', component: LogoutComponent},
     {path: 'ml_check', component: MlCheckComponent},
     {path: 'inspection_results', component: InspectionResultsComponent},
     {path: 'registration', component: RegistrationComponent},

@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AccountService } from '../server_interaction/account.service';
 
 @Component({
   selector: 'app-ml-check',
@@ -8,7 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './ml-check.component.html',
   styleUrl: './ml-check.component.sass'
 })
-export class MlCheckComponent {
+export class MlCheckComponent{
   @ViewChild('checkButton') btn!: ElementRef;
   @ViewChild('text') text!: ElementRef<HTMLTextAreaElement>
 
@@ -16,6 +17,9 @@ export class MlCheckComponent {
   @ViewChild('result') result!: ElementRef;
   @ViewChild('sentiment') sentiment!: ElementRef<HTMLSpanElement>;
   
+  constructor(private account: AccountService) {
+    account.isLogin();
+  }
   
   async checkText() {
     const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
