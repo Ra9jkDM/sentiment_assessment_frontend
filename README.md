@@ -32,4 +32,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
     ng build
     python -m http.server --directory .
 
+    python -m http.server --directory dist/sentiment_assessment_web/browser/ 8080
+
 . or `dist/sentiment_assessment_web/browser/` 

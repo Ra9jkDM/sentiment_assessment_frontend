@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, inject, HostListener, viewChild} from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, HostListener, viewChild, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -7,7 +7,6 @@ import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle,
   NgbRatingModule,
   NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import {  HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { AccountService } from './server_interaction/account.service';
 
@@ -15,8 +14,7 @@ import { AccountService } from './server_interaction/account.service';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink, NgbCollapse, NgbDropdown, NgbDropdownMenu, 
-    NgbDropdownToggle, NgbAccordionModule, NgbDatepickerModule, NgbRatingModule, NgbModule, FormsModule,
-  HttpClientModule],
+    NgbDropdownToggle, NgbAccordionModule, NgbDatepickerModule, NgbRatingModule, NgbModule, FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass'
 })
