@@ -14,29 +14,31 @@ export class RequestService {
 
     loadConfig() {
 
-      console.log(this.document.location.origin)
+      // console.log(this.document.location.origin)
+      // Вызывает ошибку при сборке проекта: fetch faild
+      // Возможно при сборке, сборщик хочет закешировать ответ т.к. запрашиваем локальный config
       fetch(this.document.location.origin+'/assets/config.json').then(r => r.json()).then(r =>
-        console.log(r)
-        // alert(r.api)
+        // console.log(r)
+        this.url = r.api
       ).catch()
     }
 
-
-    async logout() {
-        let req = await fetch(this.url+'logout', {credentials: 'include'})
+    async post(url: string, body: any) {
+      let req = await fetch(this.url + url, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(body),
+        credentials: 'include'
+      })
+      return req
     }
 
-    // {
-    //     let req = await fetch('http://localhost:8000/login', {
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         },
-    //         method: "POST",
-    //         body: JSON.stringify({
-    //           "username": this.username.nativeElement.value,
-    //           "password": this.password.nativeElement.value
-    //         }),
-    //         credentials: 'include'
-    //       })
-    // }
+    async get(url: string) {
+      let req = await fetch(this.url + url, {
+        credentials: 'include'
+      });
+      return req
+    }
 }

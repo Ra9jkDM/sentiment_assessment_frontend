@@ -31,20 +31,34 @@ export class MlCheckComponent{
     this.hide(this.result);
 
     this.unhide(this.load);
-    await sleep(750);
-    this.hide(this.load);
-    this.unhide(this.btn);
-    this.unhide(this.result);
+    // await sleep(750);
+
+    let req = await this.account.post('ml/native_bias', {'text': this.text.nativeElement.value});
+    let result = await req.json()
 
     this.sentiment.nativeElement.classList.value = '';
 
-    if (Math.random() < 0.5) {
+    if (result.pred_word == 'positive') {
       this.sentiment.nativeElement.classList.add('text-success');
       this.sentiment.nativeElement.innerText = 'Положительная';
     } else {
       this.sentiment.nativeElement.classList.add('text-danger');
       this.sentiment.nativeElement.innerText = 'Отрицательная';
     }
+
+    this.hide(this.load);
+    this.unhide(this.btn);
+    this.unhide(this.result);
+
+    
+
+    // if (Math.random() < 0.5) {
+    //   this.sentiment.nativeElement.classList.add('text-success');
+    //   this.sentiment.nativeElement.innerText = 'Положительная';
+    // } else {
+    //   this.sentiment.nativeElement.classList.add('text-danger');
+    //   this.sentiment.nativeElement.innerText = 'Отрицательная';
+    // }
   }
 
   hide(el: ElementRef){

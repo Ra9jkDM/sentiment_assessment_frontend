@@ -31,8 +31,30 @@ export class AccountService {
     
     async logout() {
         if (!this.checkIsLogin()) {
-            await this.request.logout()
+            await this.request.get('logout');
             this.cookie.delete(this.cookieKey);
+            this.router.navigate(['/login'])
         }
     }
+
+
+    async post(url: string, body: any) {
+        let req = await this.request.post(url, body)
+        this.isLoginStatus(req);
+        return req
+    }
+
+    async get(url: string) {
+        let req = await this.request.get(url);
+        this.isLoginStatus(req);
+        return req
+    }
+
+    async isLoginStatus(req: any) {
+        console.log(req.status)
+        if (req.status == 403) {
+            await this.logout()
+        }
+    }
+
 }

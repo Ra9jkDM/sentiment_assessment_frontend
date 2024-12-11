@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AccountService } from '../server_interaction/account.service';
+import { RequestService } from '../server_interaction/request.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent {
   @ViewChild('password') password!: ElementRef<HTMLInputElement>;
   @ViewChild('info') info!: ElementRef<HTMLParagraphElement>;
 
-  constructor(private router: Router, private http: HttpClient,
+  constructor(private router: Router, private request: RequestService,
     private cookie: CookieService, private account: AccountService) {
       account.isLogin();
       if (this.cookie.get('auth')) {
@@ -25,17 +26,10 @@ export class LoginComponent {
   }
 
   async login() {
-    let req = await fetch('http://localhost:8000/login', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify({
-        "username": this.username.nativeElement.value,
-        "password": this.password.nativeElement.value
-      }),
-      credentials: 'include'
-    })
+    let req = await this.request.post('login', {
+          "username": this.username.nativeElement.value,
+          "password": this.password.nativeElement.value
+        })
 
     let response = await req.json();
     if (req.status==200 && response.status=='success') {

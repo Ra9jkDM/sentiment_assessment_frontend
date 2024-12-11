@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AccountService } from '../../server_interaction/account.service';
 
 @Component({
   selector: 'app-info',
@@ -13,7 +14,7 @@ export class InfoComponent {
   @ViewChild('name') name!: ElementRef<HTMLInputElement>;
   @ViewChild('lastname') lastname!: ElementRef<HTMLInputElement>;
 
-  constructor() {
+  constructor(private account: AccountService) {
     
   }
 
@@ -22,9 +23,7 @@ export class InfoComponent {
   }
 
   async loadData() {
-    let req = await fetch('http://localhost:8000/user', {
-      credentials: 'include'
-    });
+    let req = await this.account.get('user');
 
     let jsonObj = await req.json();
 
