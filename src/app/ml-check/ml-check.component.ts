@@ -24,8 +24,8 @@ export class MlCheckComponent{
   async checkText() {
     const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     
-    console.info('Start check');
-    console.info('Text:' + this.text.nativeElement.value);
+    // console.info('Start check');
+    // console.info('Text:' + this.text.nativeElement.value);
 
     this.hide(this.btn);
     this.hide(this.result);

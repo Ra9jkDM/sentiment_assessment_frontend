@@ -5,41 +5,41 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Имя</span>
         </div>
-        <input type="text" class="form-control" aria-label="Имя" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="user.name" type="text" class="form-control" aria-label="Имя" aria-describedby="inputGroup-sizing-default">
     </div>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Фамилия</span>
         </div>
-        <input type="text" class="form-control" aria-label="Фамилия" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="user.surname" type="text" class="form-control" aria-label="Фамилия" aria-describedby="inputGroup-sizing-default">
     </div>
       <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Почта</span>
           </div>
-          <input type="text" class="form-control" aria-label="Почта" aria-describedby="inputGroup-sizing-default">
+          <input  [(ngModel)]="user.mail" type="text" class="form-control" aria-label="Почта" aria-describedby="inputGroup-sizing-default">
       </div>
   
       <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Пароль</span>
           </div>
-          <input type="password" class="form-control" aria-label="Пароль" aria-describedby="inputGroup-sizing-default">
+          <input [(ngModel)]="user.password" type="password" class="form-control" aria-label="Пароль" aria-describedby="inputGroup-sizing-default">
       </div>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Подтверждение пароля</span>
         </div>
-        <input type="password" class="form-control" aria-label="Подтверждение пароля" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="user.password_check" type="password" class="form-control" aria-label="Подтверждение пароля" aria-describedby="inputGroup-sizing-default">
     </div>
     <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <input #terms class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         <label class="form-check-label" for="flexCheckDefault">
             Согласен с <a routerLink='service-rules'>условиями использования</a> сервиса
         </label>
       </div>
-      <button class="btn btn-primary btn-lg btn-block mb-2" type="submit">Зарегистрироваться</button>
-  
+      <button class="btn btn-primary btn-lg btn-block mb-2" type="submit" (click)="register()">Зарегистрироваться</button>
+      <p class="text-center fs-5 mt-3 text-danger">{{error}}</p>
     </div>
   </div>
   

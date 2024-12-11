@@ -51,7 +51,6 @@ export class AccountService {
     }
 
     async isLoginStatus(req: any) {
-        console.log(req.status)
         if (req.status == 403) {
             await this.logout()
         }
