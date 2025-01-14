@@ -30,11 +30,17 @@ export class AccountService {
     }
     
     async logout() {
-        if (!this.checkIsLogin()) {
-            await this.request.get('logout');
-            this.cookie.delete(this.cookieKey);
-            this.router.navigate(['/login'])
-        }
+        await this.request.get('logout');
+
+        this.cookie.set('auth', '', 
+            {path: '/', expires:  new Date()});
+        this.cookie.delete(this.cookieKey); // Не удаляет после перезагрузки страницы
+        this.router.navigate(['/'])
+        // if (!this.checkIsLogin()) {
+        //     await this.request.get('logout');
+        //     this.cookie.delete(this.cookieKey);
+        //     this.router.navigate(['/'])
+        // }
     }
 
 

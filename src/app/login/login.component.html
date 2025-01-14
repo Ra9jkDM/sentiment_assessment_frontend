@@ -5,21 +5,21 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Почта</span>
         </div>
-        <input #username type="text" class="form-control" aria-label="Почта" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="user.username" type="text" class="form-control" aria-label="Почта" aria-describedby="inputGroup-sizing-default">
     </div>
 
     <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Пароль</span>
         </div>
-        <input #password type="password" class="form-control" aria-label="Пароль" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="user.password" type="password" class="form-control" aria-label="Пароль" aria-describedby="inputGroup-sizing-default">
     </div>
 
     <button class="btn btn-primary btn-lg btn-block mb-2" (click)="login()" type="submit">Войти</button>
 
     <button routerLink='/registration' class="btn btn-primary btn-lg btn-block" type="submit">Регистрация</button>
   
-    <p #info class="text-center fs-5 mt-3 text-danger"></p>
+    <p class="text-center fs-5 mt-3 text-danger">{{ info }}</p>
   </div>
 </div>
 

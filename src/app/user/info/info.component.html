@@ -17,13 +17,13 @@
         <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Имя</span>
         </div>
-        <input #name type="text" class="form-control" aria-label="Имя" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="name" type="text" class="form-control" aria-label="Имя" aria-describedby="inputGroup-sizing-default">
     </div>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Фамилия</span>
         </div>
-        <input #lastname type="text" class="form-control" aria-label="Фамилия" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="lastname" type="text" class="form-control" aria-label="Фамилия" aria-describedby="inputGroup-sizing-default">
     </div>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -31,5 +31,7 @@
         </div>
         <input type="text" readonly class="form-control" aria-label="Роль" aria-describedby="inputGroup-sizing-default" value='Администратор'>
     </div>
-    <button type="button" class="btn btn-outline-primary mb-3">Сохранить</button>
+    <button type="button" (click)="saveChanges()" class="btn btn-outline-primary mb-3">Сохранить</button>
 </div>
+
+<app-notification></app-notification>

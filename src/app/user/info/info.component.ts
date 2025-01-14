@@ -1,18 +1,24 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AccountService } from '../../server_interaction/account.service';
+import { FormsModule } from '@angular/forms';
+import { NotificationComponent } from '../../notification/notification.component';
 
 @Component({
   selector: 'app-info',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, NotificationComponent],
   templateUrl: './info.component.html',
   styleUrl: './info.component.sass'
 })
 export class InfoComponent {
+  @ViewChild(NotificationComponent)
+  notification!: NotificationComponent;
+
   @ViewChild('img') img!:  ElementRef<HTMLImageElement>;
   @ViewChild('file') file!:  ElementRef<HTMLInputElement>;
-  @ViewChild('name') name!: ElementRef<HTMLInputElement>;
-  @ViewChild('lastname') lastname!: ElementRef<HTMLInputElement>;
+
+  name :string = '';
+  lastname: string = '';
 
   constructor(private account: AccountService) {
     
@@ -27,8 +33,8 @@ export class InfoComponent {
 
     let jsonObj = await req.json();
 
-    this.name.nativeElement.value = jsonObj.firstname;
-    this.lastname.nativeElement.value = jsonObj.lastname;
+    this.name = jsonObj.firstname;
+    this.lastname = jsonObj.lastname;
 
   }
 
@@ -51,6 +57,7 @@ export class InfoComponent {
 
   async saveChanges() {
     // ToDo
-    
+    console.log(this.name, this.lastname);
+    // this.notification.showNotification();
   }
 }
