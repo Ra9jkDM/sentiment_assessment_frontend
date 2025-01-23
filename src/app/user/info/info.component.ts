@@ -17,10 +17,14 @@ export class InfoComponent {
   @ViewChild('img') img!:  ElementRef<HTMLImageElement>;
   @ViewChild('file') file!:  ElementRef<HTMLInputElement>;
 
+  username: string = '';
   name :string = '';
   lastname: string = '';
+  error: Function;
 
   constructor(private account: AccountService) {
+    this.error = () => {this.notification.showNotification(undefined, 'Ошибка', 
+      'Не удалось сохранить внесенные изменеия', 'confirm')};
     
   }
 
@@ -32,7 +36,8 @@ export class InfoComponent {
     let req = await this.account.get('user');
 
     let jsonObj = await req.json();
-
+    // console.log(jsonObj)
+    this.username = jsonObj.username
     this.name = jsonObj.firstname;
     this.lastname = jsonObj.lastname;
 
@@ -55,9 +60,24 @@ export class InfoComponent {
 
   }
 
-  async saveChanges() {
-    // ToDo
-    console.log(this.name, this.lastname);
-    // this.notification.showNotification();
+  async requestToSaveChanges() {
+    this.notification.showNotification(() => {this.saveChanges()}, 'Предупреждение', 'Сохранить внесенные изменения?');
   }
+
+  async saveChanges() {
+    try {
+      let req = await this.account.post('user/update', 
+        {'username': this.username, 
+          "firstname": this.name,
+          "lastname": this.lastname})
+    
+      let res = await this.account.isRequestSuccessful(req)
+      if (!res) {
+        this.error()
+      }
+    } catch {
+      this.error()
+    }
+  }
+
 }

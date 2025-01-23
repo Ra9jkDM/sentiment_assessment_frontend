@@ -62,4 +62,12 @@ export class AccountService {
         }
     }
 
+    async isRequestSuccessful(request: any) {
+        let response = await request.json();
+        if (request.status==200 && response.status=='success') {
+            return response
+        }
+        return false
+    }
+
 }

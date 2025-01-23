@@ -6,9 +6,9 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Почта</span>
         </div>
-        <input type="text" class="form-control" aria-label="Почта" aria-describedby="inputGroup-sizing-default">
+        <input [(ngModel)]="username" type="text" readonly class="form-control" aria-label="Почта" aria-describedby="inputGroup-sizing-default">
     </div>
-    <button type="button" class="btn btn-outline-primary mb-3">Сохранить логин</button>
+    <!-- <button type="button" class="btn btn-outline-primary mb-3">Сохранить логин</button> -->
 
     <p class='fs-4'>Пароль</p>
     <div class="input-group mb-3">

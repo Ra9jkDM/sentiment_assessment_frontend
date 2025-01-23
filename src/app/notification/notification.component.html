@@ -1,14 +1,10 @@
-<div id="notification" [class]="notification">
+<div class="container text-center" id="notification" [class]="notification">
     <h1>{{ status }}</h1>
     <p>{{ info }}</p>
-    Ght;lsaflkdf
-    <!-- <button (click)="hide()">Ok</button> -->
-    <button class="btn btn-danger mb-3" (click)="hide()">Подтвердить</button>
-    <button class="btn btn-success mb-3" (click)="hide()">Отменить</button>
+
+    <button (click)="confirmAction()" class="btn btn-danger me-3" (click)="hide()" [class]="btn_status">Подтвердить</button>
+    <button class="btn btn-success" (click)="hide()" [class]="btn_status">Отменить</button>
+    <button class="btn btn-success" (click)="hide()" [class]="btn_ok_status">Ок</button>
 </div>
 
-<!--https://github.com/Ra9jkDM/poweroff_web/blob/main/src/app/main/main.component.html
-
-https://github.com/Ra9jkDM/poweroff_web/blob/main/src/app/notification/notification.component.ts
--->
 

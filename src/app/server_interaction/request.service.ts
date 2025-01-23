@@ -7,7 +7,8 @@ import { DOCUMENT } from '@angular/common';
   providedIn: 'root',
 })
 export class RequestService {
-    url: string = 'https://sentiment-analysis.mooo.com/api/'; //'http://localhost:8000/api/';  
+    // url: string = 'https://sentiment-analysis.mooo.com/api/';  
+    url: string = 'http://localhost:8000/api/';
 
     constructor(private http: HttpClient, @Inject(DOCUMENT) private document: Document) {
       this.loadConfig()
