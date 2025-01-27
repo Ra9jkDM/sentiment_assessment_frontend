@@ -25,6 +25,9 @@ export class InfoComponent {
   role: string = 'Пользователь';
   error: Function;
   avatar?: File;
+  isImageDeleted: boolean = false
+
+  baseImage: string = '/assets/user-logo.png'
 
   constructor(private account: AccountService, private app: AppComponent,
     private imageService: ImageService
@@ -34,16 +37,14 @@ export class InfoComponent {
     
   }
 
-  async ngOnInit() {
+  async ngAfterViewInit() {
     await this.loadData()
   }
 
   async loadData() {
     let req = await this.account.get('user');
-    // let req_img = await this.account.get_file('user/avatar');
 
     let jsonObj = await req.json();
-    // console.log(jsonObj)
     this.username = jsonObj.username
     this.name = jsonObj.firstname;
     this.lastname = jsonObj.lastname;
@@ -53,40 +54,22 @@ export class InfoComponent {
       this.role = 'Администратор'
     }
 
-    
-    // let blob = await req_img.blob() as Blob
-    //   // console.log(blob.type)
-    // if (blob.type == 'image/img') {
-    //     // let reader = new FileReader()
-    //     // reader.onload = (e: any) => {
-    //     //   this.img.nativeElement.src = e.target.result;
-    //     // };
-    //     // reader.readAsDataURL(blob);
-    //   this.loadImage(this.img, blob)
-    // }
-
     this.imageService.loadImageIfExists('user/avatar', this.img)
     
   }
 
   changeImage() {
-    // console.info('Image:', this.file.nativeElement.files);
     if (this.file.nativeElement.files && this.file.nativeElement.files[0]) {
       this.avatar = this.file.nativeElement.files[0];
       this.imageService.loadImage(this.img, this.avatar)
-     
-      // let reader = new FileReader()
-
-      // reader.onload = (e: any) => {
-      //   // console.info(e.target.result);
-      //   this.img.nativeElement.src = e.target.result;
-      // };
-
-      // // console.info(this.file.nativeElement.files[0]);
-      // reader.readAsDataURL(this.file.nativeElement.files[0]);
-      // this.avatar = this.file.nativeElement.files[0];
+      this.isImageDeleted = false
     }
 
+  }
+
+  deleteImage() {
+    this.img.nativeElement.src = this.baseImage;
+    this.isImageDeleted = true
   }
 
   async requestToSaveChanges() {
@@ -100,8 +83,10 @@ export class InfoComponent {
           "firstname": this.name,
           "lastname": this.lastname})
 
-        let req_img
-      if (this.avatar) {
+      let req_img
+      if (this.isImageDeleted) {
+        req_img = await this.account.post('user/avatar/delete', {})
+      } else if (this.avatar) {
         let body = {photo: this.avatar}
         req_img = await this.account.post_file('user/avatar/update', body)
       }
@@ -113,26 +98,12 @@ export class InfoComponent {
         this.error()
       }   
 
-      
-    // if (this.file.nativeElement.files && this.file.nativeElement.files[0]) {
-    //   let reader = new FileReader()
-
-    //   reader.onload = (e: any) => {
-    //     // console.info(e.target.result);
-    //     this.app.img.nativeElement.src = e.target.result;
-    //   };
-
-    //   // console.info(this.file.nativeElement.files[0]);
-    //   reader.readAsDataURL(this.file.nativeElement.files[0]);
-    //   this.avatar = this.file.nativeElement.files[0];
-    // }
-
-    if (this.avatar) {
+    if (this.isImageDeleted){
+      this.app.img.nativeElement.src = this.baseImage;
+    } else if (this.avatar) {
       this.imageService.loadImage(this.app.img, this.avatar)
     }
 
-
-     ////
     } catch {
       this.error()
     }

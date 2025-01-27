@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, inject, HostListener, viewChild, NgModule} from '@angular/core';
+import { Component, ViewChild, ElementRef, inject, HostListener, viewChild, NgModule, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink, RouterLinkActive } from '@angular/router';
@@ -9,6 +9,7 @@ import { NgbCollapse, NgbDropdown, NgbDropdownMenu, NgbDropdownToggle,
 import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AccountService } from './server_interaction/account.service';
+import { ImageService } from './server_interaction/image.service';
 
 @Component({
   selector: 'app-root',
@@ -24,16 +25,20 @@ export class AppComponent {
 
   public isCollapsed : boolean = true;
 
-  constructor(public account: AccountService) {
+  constructor(public account: AccountService, private imageService: ImageService) {
     
   }
 
-  async ngOnInit(){
+  ngOnInit() {
+
+  }
+
+  async ngAfterViewInit(){
     await this.loadData()
   }
 
   async loadData() {
-    
+    this.imageService.loadImageIfExists('user/avatar', this.img)
   }
 
   closeNav() {
