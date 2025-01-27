@@ -49,10 +49,32 @@ export class RequestService {
       return req
     }
 
+    async post_file(url: string, body: any) {
+      const formData = new FormData()
+
+      for (let key in body) {
+        formData.append(key, body[key])
+      }
+
+      let req = await fetch(this.url + url, {
+        method: "POST",
+        body: formData,
+        credentials: 'include'
+      })
+      return req
+    }
+
     async get(url: string) {
       let req = await fetch(this.url + url, {
         credentials: 'include'
       });
       return req
+    }
+
+    async get_file(url: string) {
+      let req = await fetch(this.url + url, {
+        credentials: 'include'
+      });
+      return req.blob()
     }
 }

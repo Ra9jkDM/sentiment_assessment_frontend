@@ -50,7 +50,19 @@ export class AccountService {
         return req
     }
 
+    async post_file(url: string, body: any) {
+        let req = await this.request.post_file(url, body)
+        this.isLoginStatus(req);
+        return req
+    }
+
     async get(url: string) {
+        let req = await this.request.get(url);
+        this.isLoginStatus(req);
+        return req
+    }
+
+    async get_file(url: string) {
         let req = await this.request.get(url);
         this.isLoginStatus(req);
         return req

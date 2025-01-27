@@ -29,7 +29,7 @@
         <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Роль</span>
         </div>
-        <input type="text" readonly class="form-control" aria-label="Роль" aria-describedby="inputGroup-sizing-default" value='Администратор'>
+        <input type="text" [(ngModel)]="role" readonly class="form-control" aria-label="Роль" aria-describedby="inputGroup-sizing-default">
     </div>
     <button type="button" (click)="requestToSaveChanges()" class="btn btn-outline-primary mb-3">Сохранить</button>
 </div>

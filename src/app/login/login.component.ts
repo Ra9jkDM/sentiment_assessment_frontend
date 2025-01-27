@@ -36,9 +36,9 @@ export class LoginComponent {
           "password": this.user.password
         })
 
-    let response = await req.json();
-    if (req.status==200 && response.status=='success') {
-      this.cookie.set('auth', response.cookie, 
+        let res = await this.account.isRequestSuccessful(req)
+    if (res) {
+      this.cookie.set('auth', res.cookie, 
         {path: '/', expires:  this.addDays(new Date(), 10)});
       this.router.navigate(['/account']);
     } else {

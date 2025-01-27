@@ -17,6 +17,8 @@
 <p class='mb-3'>Если вы уверены в своем решении, пожалуйста, подтвердите удаление.</p>
 
 
-<button type="button" class="btn w-100 btn-danger">Удалить</button>
+<button (click)="requestToSaveChanges()" type="button" class="btn w-100 btn-danger">Удалить</button>
 
 </div>
+
+<app-notification></app-notification>

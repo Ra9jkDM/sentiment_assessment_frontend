@@ -20,10 +20,19 @@ import { AccountService } from './server_interaction/account.service';
 })
 export class AppComponent {
   title = 'sentiment_assessment_web';
+  @ViewChild('img') img!: ElementRef<HTMLImageElement>
 
   public isCollapsed : boolean = true;
 
   constructor(public account: AccountService) {
+    
+  }
+
+  async ngOnInit(){
+    await this.loadData()
+  }
+
+  async loadData() {
     
   }
 
