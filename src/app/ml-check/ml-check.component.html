@@ -4,12 +4,20 @@
 <div class="main-box container min-vh-100">
     <p class="text-center fs-1">Проверка тональности</p>
     <p class="fs-3">Текст для проверки</p>
-    <div class="input-group mb-2">
+    <div class="input-group mb-1">
       <textarea class="form-control" rows="6" #text></textarea>
     </div>
   
-    <button  #checkButton (click)="checkText()" class="btn btn-primary btn-block" type="submit">Проверить тональность</button>
-  
+    <!-- <button  #checkButton (click)="checkText()" class="btn btn-primary btn-block me-2" type="submit">Проверить тональность</button> -->
+    <div class="btn btn-primary btn-block me-2 mt-1">
+      <label class="text-white" for="text">Проверить тональность</label>
+      <input #checkButton type='submit' (click)="checkText()" class="form-control d-none" id="text"/>
+  </div>
+    <div class="btn btn-primary btn-block mt-1">
+      <label class="text-white" for="file">Проверить тональность в таблице</label>
+      <input #file type="file" class="form-control d-none" id="file" (change)="checkTable()"/>
+  </div>
+    
   <div class="hide" #load>
   <div class="d-flex">
     <div class="spinner-border text-primary m-1" role="status">
@@ -26,8 +34,16 @@
     </p>
    
   </div>
+  <div #table_result class="hide mt-3">
+    <div #status_circle class="status-circle"></div>
+    <div class="info">
+      <div><div class="box" style="background-color: #dc3545;"></div>{{positive}}% Положительных</div>
+      <div><div class="box" style="background-color: #198754;"></div>{{negative}}% Отрицательных</div>
+      <div><div class="box" style="background-color: #0d6efd;"></div>{{unknown}}% Нейтральных</div>
+    </div>
+  </div>
   
-  <p class="fs-3 m-2 text-danger hide" id="error">Ошибка при получении ответа</p>
+  <p #error class="fs-3 m-2 text-danger hide" id="error">Ошибка при получении ответа</p>
     
       
   </div>
