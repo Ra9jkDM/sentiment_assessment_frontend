@@ -28,19 +28,23 @@
   </div>
   
   <div class="hide" #result>
+    <hr>
     <p class="fs-3 align-baseline m-2">Результат</p>
     <p class="fs-5 align-baseline m-2 ">Тональность текста: 
       <span #sentiment></span>
     </p>
    
   </div>
-  <div #table_result class="hide mt-3">
+  <div #table_result class=" hide mt-3">
+    <hr>
     <div #status_circle class="status-circle"></div>
     <div class="info">
       <div><div class="box" style="background-color: #dc3545;"></div>{{positive}}% Положительных</div>
       <div><div class="box" style="background-color: #198754;"></div>{{negative}}% Отрицательных</div>
       <div><div class="box" style="background-color: #0d6efd;"></div>{{unknown}}% Нейтральных</div>
     </div>
+<hr>
+    <a #file_url class="btn btn-primary btn-block">Скачать подробный отчет</a>
   </div>
   
   <p #error class="fs-3 m-2 text-danger hide" id="error">Ошибка при получении ответа</p>

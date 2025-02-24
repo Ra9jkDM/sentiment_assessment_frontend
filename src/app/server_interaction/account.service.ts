@@ -16,6 +16,10 @@ export class AccountService {
 
     }
 
+    getBaseUrl() {
+        return this.request.url
+    }
+
     isLogin() {
         if (!this.cookie.get(this.cookieKey)) {
             this.router.navigate([this.loginPage])

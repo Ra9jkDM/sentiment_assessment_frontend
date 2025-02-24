@@ -20,6 +20,7 @@ export class MlCheckComponent{
 
   @ViewChild('table_result') table_result!: ElementRef<HTMLDivElement>
   @ViewChild('status_circle') status_circle!: ElementRef<HTMLDivElement>;
+  @ViewChild('file_url') file_url!: ElementRef<HTMLLinkElement>;
 
   @ViewChild('error') error!: ElementRef<HTMLParagraphElement>; 
 
@@ -95,6 +96,7 @@ export class MlCheckComponent{
           this.negative = this.round(res.negative / res.rows_amount)
           this.unknown = this.round(res.unknown / res.rows_amount)
 
+          this.file_url.nativeElement.href = this.account.getBaseUrl() + "history/file?id=" + res.file_name
           this.showTableSentiment(this.negative, this.unknown)
         }
 
@@ -150,3 +152,4 @@ export class MlCheckComponent{
     return Math.round(num * 10000) / 100
   }
 }
+
