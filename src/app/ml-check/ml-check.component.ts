@@ -1,11 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AccountService } from '../server_interaction/account.service';
+import { CircleStatusComponent } from '../elements/circle-status/circle-status.component';
+import { tree } from 'ngx-bootstrap-icons';
 
 @Component({
   selector: 'app-ml-check',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CircleStatusComponent],
   templateUrl: './ml-check.component.html',
   styleUrl: './ml-check.component.sass'
 })
@@ -18,64 +20,47 @@ export class MlCheckComponent{
   @ViewChild('result') result!: ElementRef;
   @ViewChild('sentiment') sentiment!: ElementRef<HTMLSpanElement>;
 
-  @ViewChild('table_result') table_result!: ElementRef<HTMLDivElement>
-  @ViewChild('status_circle') status_circle!: ElementRef<HTMLDivElement>;
-  @ViewChild('file_url') file_url!: ElementRef<HTMLLinkElement>;
+  @ViewChild(CircleStatusComponent) status_circle!: CircleStatusComponent
 
   @ViewChild('error') error!: ElementRef<HTMLParagraphElement>; 
 
-  positive: number = 140
-  negative: number = 100
-  unknown: number = 1140
+  status: string = 'hide'
   
   constructor(private account: AccountService) {
     account.isLogin();
   }
   
   async checkText() {
-    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    
-    // console.info('Start check');
-    // console.info('Text:' + this.text.nativeElement.value);
-
     this.hide(this.btn);
     this.hide(this.result);
-    this.hide(this.table_result)
+    this.status = 'hide'
 
     this.unhide(this.load);
-    // await sleep(750);
 
-    let req = await this.account.post('ml/native_bias', {'text': this.text.nativeElement.value});
+    let req = await this.account.post('ml/lstm', {'text': this.text.nativeElement.value});
     let result = await req.json()
 
     this.sentiment.nativeElement.classList.value = '';
 
-    if (result.pred_word == 'positive') {
+    if (result.positive) {
       this.sentiment.nativeElement.classList.add('text-success');
       this.sentiment.nativeElement.innerText = 'Положительная';
-    } else {
+    } else if (result.negative) {
       this.sentiment.nativeElement.classList.add('text-danger');
       this.sentiment.nativeElement.innerText = 'Отрицательная';
+    } else {
+      this.sentiment.nativeElement.classList.add('text-primary');
+      this.sentiment.nativeElement.innerText = 'Нейтральная';
     }
 
     this.hide(this.load);
     this.unhide(this.btn);
     this.unhide(this.result);
-
-    
-
-    // if (Math.random() < 0.5) {
-    //   this.sentiment.nativeElement.classList.add('text-success');
-    //   this.sentiment.nativeElement.innerText = 'Положительная';
-    // } else {
-    //   this.sentiment.nativeElement.classList.add('text-danger');
-    //   this.sentiment.nativeElement.innerText = 'Отрицательная';
-    // }
   }
 
   async checkTable() {
     this.hide(this.result);
-    this.hide(this.table_result)
+    this.status = 'hide'
 
     this.unhide(this.load);
     if (this.file.nativeElement.files && this.file.nativeElement.files[0]) {
@@ -92,15 +77,16 @@ export class MlCheckComponent{
           this.error.nativeElement.textContent = 'Ошибка: сервер не отвечает'
           this.unhide(this.error)
         } else {
-          this.positive = this.round(res.positive / res.rows_amount)
-          this.negative = this.round(res.negative / res.rows_amount)
-          this.unknown = this.round(res.unknown / res.rows_amount)
+          this.status_circle.amount = true
+          this.status_circle.positive_amount = res.positive
+          this.status_circle.negative_amount = res.negative
+          this.status_circle.unknown_amount = res.unknown
+          this.status_circle.id = res.file_name
 
-          this.file_url.nativeElement.href = this.account.getBaseUrl() + "history/file?id=" + res.file_name
-          this.showTableSentiment(this.negative, this.unknown)
+          this.status_circle.update()
+          this.status='none'
         }
 
-        console.log(res)
 
       } else {
         console.log('NOT sup type')
@@ -128,28 +114,5 @@ export class MlCheckComponent{
     el.nativeElement.classList.remove('hide');
   }
 
-  showTableSentiment(negative: number, unknown: number) {
-    this.unhide(this.table_result)
-    console.log('Change style')
-    let one_percent = 360 / 100
-
-    negative *= one_percent
-    unknown *= one_percent
-
-    const red = '#dc3545'
-    const green = '#198754'
-    const blue = '#0d6efd'
-
-    let grad = 'linear-gradient(white, white), \
-    conic-gradient('+red+' 0deg, '+red+' '+negative+'deg, \
-    '+blue+' '+negative+'deg, '+blue+' '+(negative+unknown)+'deg, \
-    '+green+' '+(negative+unknown)+'deg, '+green+')'
-    this.status_circle.nativeElement.style.backgroundImage = grad;
-  }
-
-
-  round(num: number) {
-    return Math.round(num * 10000) / 100
-  }
 }
 

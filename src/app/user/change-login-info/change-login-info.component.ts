@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../../server_interaction/account.service';
-import { NotificationComponent } from '../../notification/notification.component';
+import { NotificationComponent } from '../../elements/notification/notification.component';
 
 @Component({
   selector: 'app-change-login-info',

@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AccountService } from '../../server_interaction/account.service';
 import { FormsModule } from '@angular/forms';
-import { NotificationComponent } from '../../notification/notification.component';
+import { NotificationComponent } from '../../elements/notification/notification.component';
 import { AppComponent } from '../../app.component';
 import { ImageService } from '../../server_interaction/image.service';
 

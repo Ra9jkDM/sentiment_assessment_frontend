@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NotificationComponent } from '../../notification/notification.component';
+import { NotificationComponent } from '../../elements/notification/notification.component';
 import { AccountService } from '../../server_interaction/account.service';
 import { Router } from '@angular/router';
 
