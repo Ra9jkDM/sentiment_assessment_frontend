@@ -36,11 +36,15 @@ export class InspectionResultsComponent {
 	notification!: NotificationComponent;
 	@ViewChild('page_numbers') page_numbers!: ElementRef<HTMLUListElement>
 
-	RECORDS_ON_PAGE: number = 5
+	RECORDS_ON_PAGE: number = 10
 	datepipe = new DatePipe('en-US')
 
 	history_type: string = 'text'
-  	pages: Array<number>= Array(1);
+	history_name: string = ''
+	history_start_date: string = ''
+	history_end_date: string = ''
+
+  	pages: Array<number>= [1]
   	text_results: TextHistory[] = Array()
   	max_page_idx = 1
   	current_page: number = 1
@@ -49,8 +53,8 @@ export class InspectionResultsComponent {
 	formatter = inject(NgbDateParserFormatter);
 
 	hoveredDate: NgbDate | null = null;
-	fromDate: NgbDate | null = this.calendar.getToday();
-	toDate: NgbDate | null = this.calendar.getNext(this.calendar.getToday(), 'd', 10);
+	fromDate: NgbDate | null = this.calendar.getPrev(this.calendar.getToday(), 'd', 30);
+	toDate: NgbDate | null = this.calendar.getToday();
 
   constructor(private account: AccountService) {
 	account.isLogin();
@@ -60,8 +64,25 @@ export class InspectionResultsComponent {
 	await this.loadData()
   }
 
+  createRequestUrl(start: string) {
+	this.history_start_date = this.getDate(this.fromDate)
+	this.history_end_date = this.getDate(this.toDate)
+
+	let result = start + '?history_type='+this.history_type
+	if (this.history_name) {
+		result += '&name='+ this.history_name
+	}
+	if (this.history_start_date) {
+		result += '&start_date='+ this.history_start_date
+	}
+	if (this.history_end_date) {
+		result += '&end_date='+ this.history_end_date
+	}
+	return result
+  }
+
   async loadData() {
-	let req = await this.account.get('history/length?history_type='+this.history_type)
+	let req = await this.account.get(this.createRequestUrl('history/length'))
 	let jsonObj = await req.json();
 	console.log('LoadData', jsonObj)
 
@@ -79,8 +100,26 @@ export class InspectionResultsComponent {
 	await this.changePage(1)
   }
 
+  getDate(date: NgbDate | null) {
+	if (date) {
+		return date.year + '-' + this.addZero(date.month) + '-' + this.addZero(date.day)
+	}
+	return ''
+  }
+
+  addZero(num?: number) {
+	if (num) {
+		if (num < 10) {
+			return '0'+ num
+		} else {
+			return num
+		}
+	}
+	return ''
+  }
+
   private async loadRecords(page: number) {
-	let req = await this.account.get('history?history_type='+this.history_type+'&page=' + page)
+	let req = await this.account.get(this.createRequestUrl('history')+'&page=' + page)
 	let jsonObj = await req.json();
 	console.log(jsonObj)
 
@@ -147,7 +186,7 @@ export class InspectionResultsComponent {
 
   updateCurrentPageId() {
 	console.log(this.current_page)
-	for(let i = 1; i < this.page_numbers.nativeElement.children.length - 1; i++) {
+	for(let i = 0; i < this.page_numbers.nativeElement.children.length - 1; i++) {
 		this.page_numbers.nativeElement.children[i].classList.remove('current-page')
 	}
 
