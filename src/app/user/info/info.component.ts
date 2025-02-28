@@ -92,7 +92,12 @@ export class InfoComponent {
       }
     
       let res = await this.account.isRequestSuccessful(req)
-      req_img = await this.account.isRequestSuccessful(req_img)
+
+      if (this.avatar) {
+        req_img = await this.account.isRequestSuccessful(req_img)
+      } else {
+        req_img = true
+      }
 
       if (!res || !req_img) {
         this.error()

@@ -40,6 +40,8 @@ export class LoginComponent {
     if (res) {
       this.cookie.set('auth', res.cookie, 
         {path: '/', expires:  this.addDays(new Date(), 10)});
+        this.cookie.set('role', res.role, 
+          {path: '/', expires:  this.addDays(new Date(), 10)});
       this.router.navigate(['/account']);
     } else {
       this.info='Неправильный логин или пароль.';

@@ -25,7 +25,7 @@ export class AccountService {
             this.router.navigate([this.loginPage])
         }
     }
-
+    
     checkIsLogin() {
         if (!this.cookie.get(this.cookieKey)) {
             return true;
@@ -33,10 +33,30 @@ export class AccountService {
         return false;
     }
     
+    isAdmin() { 
+        if (this.getRole() == 'admin') {
+            return true
+        }
+        return false
+    }
+
+    checkPrivileges(role: string) {
+        if (this.getRole() != role) {
+            this.router.navigate(['/'])
+        }
+    }
+
+    getRole() {
+        return this.cookie.get('role')
+    }
+
+
     async logout() {
         await this.request.get('logout');
 
         this.cookie.set('auth', '', 
+            {path: '/', expires:  new Date()});
+        this.cookie.set('role', '', 
             {path: '/', expires:  new Date()});
         this.cookie.delete(this.cookieKey); // Не удаляет после перезагрузки страницы
         this.router.navigate(['/'])

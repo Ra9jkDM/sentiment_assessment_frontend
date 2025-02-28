@@ -10,6 +10,7 @@ import { InfoComponent } from './user/info/info.component';
 import { ChangeLoginInfoComponent } from './user/change-login-info/change-login-info.component';
 import { DeleteAccountComponent } from './user/delete-account/delete-account.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 export const routes: Routes = [
     {path: '', component: MainComponent},
@@ -23,6 +24,8 @@ export const routes: Routes = [
     {path: 'account', component: AccountComponent},
     // {path: 'account/access', component: ChangeLoginInfoComponent},
     // {path: 'account/delete', component: DeleteAccountComponent},
+
+    {path: 'admin', component: AdminPanelComponent},
 
     {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ];

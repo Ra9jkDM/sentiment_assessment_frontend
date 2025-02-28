@@ -24,7 +24,21 @@
                 </ul>
             </div>
             </div>
-          </li>
+
+            <li *ngIf="account.isAdmin()">
+            <div #myDrop1="ngbDropdown" ngbDropdown class="d-inline-block">
+              <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle autoClose='true'>
+                  Администрирование
+              </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <ul class='ps-3 pe-3'>
+                  <li><a class="nav-link" routerLink="/admin" (click)="myDrop1.close(); closeNav()">Пользователи</a></li>
+              </ul>
+          </div>
+          
+          </div>
+        </li>
+          
           <li class="nav-item">
             <a class="nav-link" routerLink="/about" (click)="closeNav()">О проекте</a>
           </li>
