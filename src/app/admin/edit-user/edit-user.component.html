@@ -5,13 +5,13 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
             </div>
-            <input disabled type="text" value="bob_erwer" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input disabled type="text" value="{{user.username}}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
             </div>
-            <input #password type="password" value="bob@ma.com" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input #password type="password" [(ngModel)]="user.password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
             <div class="input-group-append">
                 <button type="button" (click)="changePasswordVisibility()" class="btn btn-outline-primary">Show/Hide</button>
               </div>  
@@ -20,26 +20,24 @@
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Firstname</span>
             </div>
-            <input type="text" value="bob_erwer" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input type="text" [(ngModel)]="user.firstname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Lastname</span>
             </div>
-            <input type="text" value="bob_erwer" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+            <input type="text" [(ngModel)]="user.lastname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroup-sizing-default">Role</span>
             </div>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>User</option>
-                <option value="1">Admin</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select [(ngModel)]="user.role" class="form-select" aria-label="Default select example">
+                <option value='user' selected>User</option>
+                <option value="admin">Admin</option>
               </select>
           </div>
-          <button type="button" (click)="hide()" class="btn btn-outline-secondary me-2">Отмена</button>
-          <button type="button" class="btn btn-outline-success">Сохранить</button>
+          <button type="button" (click)="cancelAction()" class="btn btn-outline-secondary me-2">Отмена</button>
+          <button type="button" (click)="saveChanges()" class="btn btn-outline-success">Сохранить</button>
     </div>
     </div>

@@ -1,5 +1,14 @@
 <div class="container">
     <div class="text-center fs-3">Список пользователей</div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Поиск по имени пользователя</span>
+      </div>
+      <input type="text" [(ngModel)]="user_name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+      <button (click)="loadData()" class="btn btn-outline-secondary bi bi-search" type="button"></button>
+  </div>
+
     <table class="table table-striped align-middle text-center">
         <thead>
           <tr>
@@ -12,25 +21,24 @@
           </tr>
         </thead>
         <tbody>
-
           <tr *ngFor="let item of users">
             <td>{{item.username}}</td>
             <td>{{item.firstname}}</td>
             <td>{{item.lastname}}</td>
             <td>
-                <button type="button" (click)="editUser()" class="btn btn-outline-secondary">Edit</button>
+                <button type="button" (click)="editUser(item)" class="btn btn-outline-secondary">Edit</button>
             </td>
             
             <td *ngIf="item.is_active; then active else deactive"></td>
                 <ng-template #active>
-                    <td><button type="button" class="btn btn-outline-warning">Активен</button></td>
+                    <td><button type="button" value="{{item.is_active}}" (click)="activateUser($event, item)" class="btn btn-outline-warning">Активен</button></td>
                 </ng-template>
                 <ng-template #deactive>
-                    <td><button type="button" class="btn btn-warning">Отключен</button></td>
+                    <td><button type="button" value="{{item.is_active}}" (click)="activateUser($event, item)" class="btn btn-warning">Отключен</button></td>
                 </ng-template>
             
             <td>
-                <button type="button" class="btn btn-outline-danger">Delete</button>
+                <button type="button" (click)="deteteUser(item)" class="btn btn-outline-danger">Delete</button>
             </td>
           </tr>
 
@@ -39,6 +47,25 @@
       </table>
 </div>
 
-<app-edit-user></app-edit-user>
+<nav class="mt-3" *ngIf="pages.length > 0" aria-label="navigation">
+  <ul #page_numbers class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" (click)="previousPage()" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
 
-<app-user-row></app-user-row>
+    <li *ngFor="let page of pages" class="page-item">
+      <a class="page-link" (click)="changePage(page)">{{page}}</a>
+    </li>
+    
+    <li class="page-item">
+      <a class="page-link " (click)="nextPage()" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<app-edit-user [notification]="notification"></app-edit-user>
+<app-notification></app-notification>
