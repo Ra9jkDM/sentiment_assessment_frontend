@@ -1,0 +1,23 @@
+#about
+    max-width: 100%
+    height: auto
+    object-fit:cover
+
+.box
+    position: relative
+    text-align: center
+    height: 40vh
+    overflow: hidden
+
+.box img
+    position: absolute
+    width: 100%
+    top: -40%
+
+@media(max-width: 574px)
+    .box img
+        top: 0
+
+@media(max-width: 360px)
+    .box
+        height: 200px

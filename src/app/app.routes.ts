@@ -11,6 +11,7 @@ import { ChangeLoginInfoComponent } from './user/change-login-info/change-login-
 import { DeleteAccountComponent } from './user/delete-account/delete-account.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { AboutComponent } from './about/about.component';
 
 export const routes: Routes = [
     {path: '', component: MainComponent},
@@ -22,10 +23,9 @@ export const routes: Routes = [
 
     // User
     {path: 'account', component: AccountComponent},
-    // {path: 'account/access', component: ChangeLoginInfoComponent},
-    // {path: 'account/delete', component: DeleteAccountComponent},
-
     {path: 'admin', component: AdminPanelComponent},
+
+    {path: 'about', component: AboutComponent},
 
     {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ];
