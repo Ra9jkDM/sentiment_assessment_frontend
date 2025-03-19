@@ -1,0 +1,36 @@
+.box
+    position: relative
+    overflow: hidden
+    height: 300px
+
+.box img
+    position: absolute
+    width: 800px
+
+.feat
+    height: 240px
+    overflow: auto
+    white-space: nowrap
+
+.feat > div
+    display: inline-block
+    vertical-align: top
+    white-space: wrap
+    width: 320px
+    height: 90%
+    margin: 5px
+    padding: 8px
+
+    border: 1px solid #848585
+    border-radius: 20px
+
+.feat .title
+    font-size: 20px
+    margin-bottom: 5px
+
+@media(min-width: 989px)
+    .box img
+        width: 1300px
+
+    .box
+        height: 350px
