@@ -12,6 +12,7 @@ import { DeleteAccountComponent } from './user/delete-account/delete-account.com
 import { LogoutComponent } from './logout/logout.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AboutComponent } from './about/about.component';
+import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
 
 export const routes: Routes = [
     {path: '', component: MainComponent},
@@ -26,6 +27,7 @@ export const routes: Routes = [
     {path: 'admin', component: AdminPanelComponent},
 
     {path: 'about', component: AboutComponent},
+    {path: 'terms-of-use', component: TermsOfUseComponent},
 
     {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ];
