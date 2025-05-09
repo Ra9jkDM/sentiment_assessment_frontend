@@ -33,6 +33,7 @@ export class MlCheckComponent{
   async checkText() {
     this.hide(this.btn);
     this.hide(this.result);
+    this.hide(this.error)
     this.status = 'hide'
 
     this.unhide(this.load);
@@ -71,10 +72,10 @@ export class MlCheckComponent{
         this.hide(this.error)
         let req_table = await this.account.post_file('ml/lstm/table', {'file': file})
         let res = await this.account.isRequestSuccessful(req_table)
-
+        // console.log(res)
         this.hide(this.load);
         if (!res) {
-          this.error.nativeElement.textContent = 'Ошибка: сервер не отвечает'
+          this.error.nativeElement.textContent = 'Ошибка: некорректный файл'
           this.unhide(this.error)
         } else {
           this.status_circle.amount = true
@@ -89,6 +90,7 @@ export class MlCheckComponent{
 
 
       } else {
+        this.hide(this.load);
         console.log('NOT sup type')
         this.error.nativeElement.textContent = 'Ошибка: неподдерживаемый тип файла'
         this.unhide(this.error)
