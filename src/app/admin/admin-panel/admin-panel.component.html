@@ -12,7 +12,7 @@
     <table class="table table-striped align-middle text-center">
         <thead>
           <tr>
-            <th scope="col">Email</th>
+            <th scope="col">Почта</th>
             <th scope="col">Имя</th>
             <th scope="col">Фамилия</th>
             <th scope="col">Изменить</th>
@@ -26,7 +26,7 @@
             <td>{{item.firstname}}</td>
             <td>{{item.lastname}}</td>
             <td>
-                <button type="button" (click)="editUser(item)" class="btn btn-outline-secondary">Edit</button>
+                <button type="button" (click)="editUser(item)" class="btn btn-outline-secondary">Изменить</button>
             </td>
             
             <td *ngIf="item.is_active; then active else deactive"></td>
@@ -38,7 +38,7 @@
                 </ng-template>
             
             <td>
-                <button type="button" (click)="deteteUser(item)" class="btn btn-outline-danger">Delete</button>
+                <button type="button" (click)="deteteUser(item)" class="btn btn-outline-danger">Удалить</button>
             </td>
           </tr>
 

@@ -3,38 +3,38 @@
         <h2>Изменение аккаунта пользователя</h2>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Username</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Почта</span>
             </div>
             <input disabled type="text" value="{{user.username}}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Пароль</span>
             </div>
             <input #password type="password" [(ngModel)]="user.password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
             <div class="input-group-append">
-                <button type="button" (click)="changePasswordVisibility()" class="btn btn-outline-primary">Show/Hide</button>
+                <button type="button" (click)="changePasswordVisibility()" class="btn btn-outline-primary">Показать/Скрыть</button>
               </div>  
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Firstname</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Имя</span>
             </div>
             <input type="text" [(ngModel)]="user.firstname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Lastname</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Фамилия</span>
             </div>
             <input type="text" [(ngModel)]="user.lastname" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default">Role</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Роль</span>
             </div>
             <select [(ngModel)]="user.role" class="form-select" aria-label="Default select example">
-                <option value='user' selected>User</option>
-                <option value="admin">Admin</option>
+                <option value='user' selected>Пользователь</option>
+                <option value="admin">Администратор</option>
               </select>
           </div>
           <button type="button" (click)="cancelAction()" class="btn btn-outline-secondary me-2">Отмена</button>

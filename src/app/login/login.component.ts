@@ -42,7 +42,8 @@ export class LoginComponent {
         {path: '/', expires:  this.addDays(new Date(), 10)});
         this.cookie.set('role', res.role, 
           {path: '/', expires:  this.addDays(new Date(), 10)});
-      this.router.navigate(['/account']);
+      // this.router.navigate(['/account']); #ml_check
+      this.router.navigate(['/ml_check']); 
     } else {
       this.info='Неправильный логин или пароль.';
     }

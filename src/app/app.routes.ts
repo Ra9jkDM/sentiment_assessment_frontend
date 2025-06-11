@@ -13,6 +13,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 import { AboutComponent } from './about/about.component';
 import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
+import { TestDataComponent } from './test-data/test-data.component';
 
 export const routes: Routes = [
     {path: '', component: MainComponent},
@@ -28,6 +29,9 @@ export const routes: Routes = [
 
     {path: 'about', component: AboutComponent},
     {path: 'terms-of-use', component: TermsOfUseComponent},
+
+    // Test data
+    {path: 'test', component: TestDataComponent},
 
     {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ];
